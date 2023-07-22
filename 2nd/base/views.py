@@ -53,7 +53,8 @@ def getTrainsData(request):
     result = requests.get(url, headers=header)
     if result.status_code == 200:
         filteredData = filter(isValidDepartureTime, result.json())
-        return render(request, 'base/trains.html', {"trains": list(filteredData)})
+        price_sorted = sorted(filteredData, key=lambda x: (min(x['price'].values()), -(x["seatsAvailable"]["sleeper"] + x["seatsAvailable"]["AC"]), -(int(x["departureTime"]["Hours"]) * 60 * 60 + int(x["departureTime"]["Minutes"] + int(x["delayedBy"])) * 60 + x["departureTime"]["Seconds"])))
+        return render(request, 'base/trains.html', {"trains": price_sorted})
 
 def getTrainData(request, pk):
     url = "http://20.244.56.144/train/trains/" + pk
