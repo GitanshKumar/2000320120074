@@ -43,7 +43,15 @@
 {% endblock %}
 
 {% block content %}
-<div style="margin: auto; width: 600px;">
+<div style="margin: auto; width: 50%;min-width: 400px; margin-top: 20px;">
+    <div style="font-size: 18px;">
+        Sort By:
+        <select name="sort-selection" id="sort">
+            <option value="price">Price</option>
+            <option value="seats">Available Seats</option>
+            <option value="departureTime">Departure Time</option>
+        </select>
+    </div>
     {% for train in trains %}
         <a href="{% url 'train' train.trainNumber %}">
         <div class="train-container">
@@ -72,4 +80,10 @@
         </a>
     {% endfor %}
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+</script>
 {% endblock %}
